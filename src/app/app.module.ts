@@ -10,6 +10,7 @@ import { CanvasComponent } from './components/canvas/canvas.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { CropperComponent } from './components/cropper/cropper.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     EditorComponent,
     ToolbarComponent,
     CanvasComponent,
-    SidebarComponent
+    SidebarComponent,
+    CropperComponent
   ],
   imports: [
     BrowserModule,

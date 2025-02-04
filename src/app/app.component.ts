@@ -7,10 +7,15 @@ import { CanvasComponent } from './components/canvas/canvas.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'image-editor';
   @ViewChild('canvasComponent') canvasComponent!: CanvasComponent;
+  showCropper = false;
 
   onImageSelected(imageSrc: string) {
+    this.canvasComponent.loadImage(imageSrc);
+  }
+
+  onImageCropped(imageSrc: string) {
+    this.showCropper = false;
     this.canvasComponent.loadImage(imageSrc);
   }
 }

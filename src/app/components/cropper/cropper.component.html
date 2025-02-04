@@ -1,0 +1,6 @@
+<image-cropper 
+  [imageChangedEvent]="imageChangedEvent"
+  (imageCropped)="imageCropped($event)"
+  format="png">
+</image-cropper>
+<button (click)="applyCrop()">Apply Crop</button>

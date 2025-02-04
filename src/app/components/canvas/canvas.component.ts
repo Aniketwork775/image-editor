@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { fabric } from 'fabric';
 
 @Component({
   selector: 'app-canvas',
@@ -6,18 +7,36 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent {
-  @ViewChild('imageCanvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('imageCanvas', { static: true }) canvasElement!: ElementRef<HTMLCanvasElement>;
+  canvas!: fabric.Canvas;
+  imageObject!: fabric.Image;
+
+  ngAfterViewInit() {
+    this.canvas = new fabric.Canvas(this.canvasElement.nativeElement);
+  }
 
   loadImage(imageSrc: string) {
-    const ctx = this.canvas.nativeElement.getContext('2d');
-    const img = new Image();
-    img.src = imageSrc;
-    img.onload = () => {
-      console.log("img.width",img.width);
-      
-      this.canvas.nativeElement.width = img.width;
-      this.canvas.nativeElement.height = img.height;
-      ctx?.drawImage(img, 0, 0);
-    };
+    fabric.Image.fromURL(imageSrc, (img:any) => {
+      this.imageObject = img;
+      img.scaleToWidth(500);
+      this.canvas.setWidth(img.width || 500);
+      this.canvas.setHeight(img.height || 500);
+      this.canvas.add(img);
+      this.canvas.renderAll();
+    });
+  }
+
+  rotateImage() {
+    if (this.imageObject) {
+      this.imageObject.rotate((this.imageObject.angle || 0) + 90);
+      this.canvas.renderAll();
+    }
+  }
+
+  resizeImage(scaleFactor: number) {
+    if (this.imageObject) {
+      this.imageObject.scale(scaleFactor);
+      this.canvas.renderAll();
+    }
   }
 }

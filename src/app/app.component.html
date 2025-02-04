@@ -1,8 +1,12 @@
 <div class="image-editor">
-  <!-- <app-upload></app-upload> -->
-  <app-toolbar></app-toolbar>
-  <app-upload (imageSelected)="onImageSelected($event)"></app-upload>
+ <app-upload (imageSelected)="onImageSelected($event)"></app-upload>
+<app-toolbar 
+  (rotateClicked)="canvasComponent.rotateImage()" 
+  (resizeClicked)="canvasComponent.resizeImage($event)" 
+  (cropClicked)="showCropper = true">
+</app-toolbar>
 <app-canvas #canvasComponent></app-canvas>
-  <app-sidebar></app-sidebar>
+<app-cropper *ngIf="showCropper" (cropped)="onImageCropped($event)"></app-cropper>
+
 </div>
 <router-outlet></router-outlet>
