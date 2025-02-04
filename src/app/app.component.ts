@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { CanvasComponent } from './components/canvas/canvas.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'image-editor';
+  @ViewChild('canvasComponent') canvasComponent!: CanvasComponent;
+
+  onImageSelected(imageSrc: string) {
+    this.canvasComponent.loadImage(imageSrc);
+  }
 }

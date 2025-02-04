@@ -1,7 +1,8 @@
 <div class="image-editor">
-  <app-upload></app-upload>
+  <!-- <app-upload></app-upload> -->
   <app-toolbar></app-toolbar>
-  <app-canvas></app-canvas>
+  <app-upload (imageSelected)="onImageSelected($event)"></app-upload>
+<app-canvas #canvasComponent></app-canvas>
   <app-sidebar></app-sidebar>
 </div>
 <router-outlet></router-outlet>
