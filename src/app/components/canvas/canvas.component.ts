@@ -71,4 +71,54 @@ export class CanvasComponent {
       this.canvas.renderAll();
     }
   }
+
+  setBrush() {
+    this.canvas.isDrawingMode = true;
+    this.canvas.freeDrawingBrush = new fabric.PencilBrush(this.canvas);
+    this.canvas.freeDrawingBrush.color = 'black';
+    this.canvas.freeDrawingBrush.width = 5;
+  }
+
+  addText() {
+    const text = new fabric.Textbox('Enter text', {
+      left: 50,
+      top: 50,
+      fontSize: 20,
+      fill: 'black',
+    });
+    this.canvas.add(text);
+  }
+
+  addRectangle() {
+    const rect = new fabric.Rect({
+      left: 100,
+      top: 100,
+      fill: 'transparent',
+      stroke: 'black',
+      strokeWidth: 2,
+      width: 100,
+      height: 100,
+    });
+    this.canvas.add(rect);
+  }
+
+  addCircle() {
+    const circle = new fabric.Circle({
+      left: 150,
+      top: 150,
+      fill: 'transparent',
+      stroke: 'black',
+      strokeWidth: 2,
+      radius: 50,
+    });
+    this.canvas.add(circle);
+  }
+
+  addLine() {
+    const line = new fabric.Line([50, 50, 200, 200], {
+      stroke: 'black',
+      strokeWidth: 2,
+    });
+    this.canvas.add(line);
+  }
 }

@@ -13,6 +13,12 @@ export class ToolbarComponent {
   @Output() rbrightnessClicked = new EventEmitter();
   @Output() contrastClicked = new EventEmitter();
   @Output() grayscaleClicked = new EventEmitter();
+  @Output() brushClicked = new EventEmitter();
+  @Output() textClicked = new EventEmitter();
+  @Output() rectangleClicked = new EventEmitter();
+  @Output() circleClicked = new EventEmitter();
+  @Output() lineClicked = new EventEmitter();
+  
   rotate() {
     this.rotateClicked.emit();
   }
@@ -39,5 +45,25 @@ export class ToolbarComponent {
 
   applyGrayscale() {
     this.grayscaleClicked.emit();
+  }
+
+  setBrush() {
+    this.brushClicked.emit();
+  }
+
+  addText() {
+    this.textClicked.emit();
+  }
+
+  addRectangle() {
+    this.rectangleClicked.emit();
+  }
+
+  addCircle() {
+    this.circleClicked.emit();
+  }
+
+  addLine() {
+    this.lineClicked.emit();
   }
 }

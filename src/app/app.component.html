@@ -7,7 +7,12 @@
   (brightnessClicked)="canvasComponent.applyBrightness()" 
   (rbrightnessClicked)="canvasComponent.reduceBrightness()" 
   (contrastClicked)="canvasComponent.applyContrast()" 
-  (grayscaleClicked)="canvasComponent.applyGrayscale()">
+  (grayscaleClicked)="canvasComponent.applyGrayscale()"
+  (brushClicked)="canvasComponent.setBrush()" 
+  (textClicked)="canvasComponent.addText()" 
+  (rectangleClicked)="canvasComponent.addRectangle()" 
+  (circleClicked)="canvasComponent.addCircle()" 
+  (lineClicked)="canvasComponent.addLine()">
 </app-toolbar>
 <app-canvas #canvasComponent></app-canvas>
 <app-cropper *ngIf="showCropper" (cropped)="onImageCropped($event)"></app-cropper>
