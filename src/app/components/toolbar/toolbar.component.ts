@@ -19,6 +19,8 @@ export class ToolbarComponent {
   @Output() circleClicked = new EventEmitter();
   @Output() lineClicked = new EventEmitter();
   
+  selectedTool = '';
+
   rotate() {
     this.rotateClicked.emit();
   }
@@ -46,24 +48,49 @@ export class ToolbarComponent {
   applyGrayscale() {
     this.grayscaleClicked.emit();
   }
+  
 
   setBrush() {
+    this.selectedTool = 'brush';
     this.brushClicked.emit();
   }
-
+  
   addText() {
+    this.selectedTool = 'text';
     this.textClicked.emit();
   }
-
+  
   addRectangle() {
+    this.selectedTool = 'rectangle';
     this.rectangleClicked.emit();
   }
-
+  
   addCircle() {
+    this.selectedTool = 'circle';
     this.circleClicked.emit();
   }
-
+  
   addLine() {
+    this.selectedTool = 'line';
     this.lineClicked.emit();
   }
+  // setBrush() {
+  //   this.brushClicked.emit();
+  // }
+
+  // addText() {
+  //   this.textClicked.emit();
+  // }
+
+  // addRectangle() {
+  //   this.rectangleClicked.emit();
+  // }
+
+  // addCircle() {
+  //   this.circleClicked.emit();
+  // }
+
+  // addLine() {
+  //   this.lineClicked.emit();
+  // }
 }

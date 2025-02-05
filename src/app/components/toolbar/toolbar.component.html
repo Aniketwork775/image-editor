@@ -6,8 +6,14 @@
 <button (click)="applyBrightness()">+Brightness</button>
 <button (click)="applyContrast()">Contrast</button>
 <button (click)="applyGrayscale()">Grayscale</button>
-<button (click)="setBrush()">Brush</button>
-<button (click)="addText()">Text</button>
-<button (click)="addRectangle()">Rectangle</button>
-<button (click)="addCircle()">Circle</button>
-<button (click)="addLine()">Line</button>
+<!-- <button (click)="setBrush()">Brush</button> -->
+<!-- <button (click)="addText()">Text</button> -->
+<!-- <button (click)="addRectangle()">Rectangle</button> -->
+<!-- <button (click)="addCircle()">Circle</button> -->
+<!-- <button (click)="addLine()">Line</button> -->
+<button [class.active]="selectedTool === 'brush'" (click)="setBrush()">Brush</button>
+<button [class.active]="selectedTool === 'text'" (click)="addText()">Text</button>
+<button [class.active]="selectedTool === 'rectangle'" (click)="addRectangle()">Rectangle</button>
+<button [class.active]="selectedTool === 'circle'" (click)="addCircle()">Circle</button>
+<button [class.active]="selectedTool === 'line'" (click)="addLine()">Line</button>
+
