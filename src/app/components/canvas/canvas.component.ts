@@ -15,7 +15,11 @@ export class CanvasComponent {
   private currentShape!: any;
   private startX = 0;
   private startY = 0;
-  
+
+  // History stacks for undo and redo
+  undoStack: string[] = [];
+  redoStack: string[] = [];
+
   // ngAfterViewInit() {
   //   this.canvas = new fabric.Canvas(this.canvasElement.nativeElement);
   // }
@@ -41,6 +45,13 @@ export class CanvasComponent {
         }
       }
     });
+     // Save the initial state of the canvas
+     this.saveState();
+
+     // Listen for events that change the canvas state
+    //  this.canvas.on('object:added', () => this.saveState());
+    //  this.canvas.on('object:modified', () => this.saveState());
+    //  this.canvas.on('object:removed', () => this.saveState());
   }
   
 
@@ -244,6 +255,13 @@ export class CanvasComponent {
     }
   
     this.canvas.add(this.currentShape);
+    const state = JSON.stringify(this.canvas.toJSON());
+    // Only push if the new state is different from the last state
+    if (this.undoStack.length === 0 || this.undoStack[this.undoStack.length - 1] !== state) {
+      this.undoStack.push(state);
+    }
+    this.redoStack=[];
+    console.log("this.undoStack====>",this.undoStack);
   }
   
   onMouseMove(event: fabric.IEvent) {
@@ -275,5 +293,51 @@ export class CanvasComponent {
     this.isDrawingShape = false;
     this.currentShape = null;
   }
-  
+
+   // Capture the current state of the canvas as JSON
+  saveState() {
+    const state = JSON.stringify(this.canvas.toJSON());
+    // Only push if the new state is different from the last state
+    if (this.undoStack.length === 0 || this.undoStack[this.undoStack.length - 1] !== state) {
+      this.undoStack.push(state);
+    }
+    // Clear the redo stack because new actions invalidate the redo history
+    this.redoStack = [];
+  }
+
+  undo() {
+    console.log("this.undoStack ",this.undoStack);
+    
+    if (this.undoStack.length > 1) {
+      // Remove the current state and push it to the redo stack
+      const currentState = this.undoStack.pop();
+      if (currentState) {
+        this.redoStack.push(currentState);
+      }
+      // Get the previous state from the top of the undo stack
+      const previousState = this.undoStack[this.undoStack.length - 1];
+      this.loadFromState(previousState);
+    }
+  }
+
+  redo() {
+    console.log("this.redoStack ",this.redoStack);
+    
+    if (this.redoStack.length>0) {
+      const state = this.redoStack.pop();
+      if (state) {
+        // Save the current state to the undo stack before applying redo
+        const currentState = JSON.stringify(this.canvas.toJSON());
+        this.undoStack.push(state);
+        this.loadFromState(state);
+      }
+    }
+  }
+
+  loadFromState(state: string) {
+    this.canvas.loadFromJSON(state, () => {
+      this.canvas.renderAll();
+    });
+  }
 }
+

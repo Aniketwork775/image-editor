@@ -16,4 +16,6 @@
 <button [class.active]="selectedTool === 'rectangle'" (click)="addRectangle()">Rectangle</button>
 <button [class.active]="selectedTool === 'circle'" (click)="addCircle()">Circle</button>
 <button [class.active]="selectedTool === 'line'" (click)="addLine()">Line</button>
+<button (click)="undo()">Undo</button>
+<button (click)="redo()">Redo</button>
 

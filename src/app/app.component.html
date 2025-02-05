@@ -1,6 +1,8 @@
 <div class="image-editor">
  <app-upload (imageSelected)="onImageSelected($event)"></app-upload>
 <app-toolbar 
+  (undoClicked)="canvasComponent.undo()"
+  (redoClicked)="canvasComponent.redo()"
   (rotateClicked)="canvasComponent.rotateImage()" 
   (resizeClicked)="canvasComponent.resizeImage($event)" 
   (cropClicked)="showCropper = true" 

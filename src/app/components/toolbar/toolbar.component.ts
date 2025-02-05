@@ -18,7 +18,8 @@ export class ToolbarComponent {
   @Output() rectangleClicked = new EventEmitter();
   @Output() circleClicked = new EventEmitter();
   @Output() lineClicked = new EventEmitter();
-  
+  @Output() undoClicked = new EventEmitter();
+  @Output() redoClicked = new EventEmitter();
   selectedTool = '';
 
   rotate() {
@@ -93,4 +94,12 @@ export class ToolbarComponent {
   // addLine() {
   //   this.lineClicked.emit();
   // }
+
+  undo() {
+    this.undoClicked.emit();
+  }
+
+  redo() {
+    this.redoClicked.emit();
+  }
 }
