@@ -3,7 +3,11 @@
 <app-toolbar 
   (rotateClicked)="canvasComponent.rotateImage()" 
   (resizeClicked)="canvasComponent.resizeImage($event)" 
-  (cropClicked)="showCropper = true">
+  (cropClicked)="showCropper = true" 
+  (brightnessClicked)="canvasComponent.applyBrightness()" 
+  (rbrightnessClicked)="canvasComponent.reduceBrightness()" 
+  (contrastClicked)="canvasComponent.applyContrast()" 
+  (grayscaleClicked)="canvasComponent.applyGrayscale()">
 </app-toolbar>
 <app-canvas #canvasComponent></app-canvas>
 <app-cropper *ngIf="showCropper" (cropped)="onImageCropped($event)"></app-cropper>

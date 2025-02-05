@@ -39,4 +39,36 @@ export class CanvasComponent {
       this.canvas.renderAll();
     }
   }
+  
+  applyBrightness() {
+    if (this.imageObject) {
+      this.imageObject.filters?.push(new fabric.Image.filters.Brightness({ brightness: 0.1 }));
+      this.imageObject.applyFilters();
+      this.canvas.renderAll();
+    }
+  }
+
+  reduceBrightness() {
+    if (this.imageObject) {
+      this.imageObject.filters?.push(new fabric.Image.filters.Brightness({ brightness: -0.1 }));
+      this.imageObject.applyFilters();
+      this.canvas.renderAll();
+    }
+  }
+
+  applyContrast() {
+    if (this.imageObject) {
+      this.imageObject.filters?.push(new fabric.Image.filters.Contrast({ contrast: 0.1 }));
+      this.imageObject.applyFilters();
+      this.canvas.renderAll();
+    }
+  }
+
+  applyGrayscale() {
+    if (this.imageObject) {
+      this.imageObject.filters?.push(new fabric.Image.filters.Grayscale());
+      this.imageObject.applyFilters();
+      this.canvas.renderAll();
+    }
+  }
 }
