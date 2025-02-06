@@ -3,3 +3,43 @@ button.active {
     color: white;
   }
   
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;  // Ensures buttons wrap on smaller screens
+    gap: 10px;
+    padding: 10px;
+    background: #1f1c2f; // Dark background for contrast
+    border-radius: 8px;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .toolbar button {
+    background: #4A90E2; // Attractive blue shade
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+    font-weight: bold;
+    outline: none;
+  }
+  
+  .toolbar button:hover {
+    background: #357ABD; // Darker blue on hover
+    transform: scale(1.05);
+  }
+  
+  .toolbar button:active {
+    background: #2C6693;
+    transform: scale(0.95);
+  }
+  
+  .toolbar input[type="file"] {
+    background: #fff;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  

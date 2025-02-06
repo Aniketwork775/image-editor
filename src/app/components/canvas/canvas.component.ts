@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fabric } from 'fabric';
 import { Rect } from 'fabric/fabric-impl';
 
@@ -7,7 +7,9 @@ import { Rect } from 'fabric/fabric-impl';
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
-export class CanvasComponent {
+export class CanvasComponent implements OnInit{
+  
+
   @ViewChild('imageCanvas', { static: true }) canvasElement!: ElementRef<HTMLCanvasElement>;
   canvas!: fabric.Canvas;
   imageObject!: fabric.Image;
@@ -23,6 +25,13 @@ export class CanvasComponent {
   // ngAfterViewInit() {
   //   this.canvas = new fabric.Canvas(this.canvasElement.nativeElement);
   // }
+
+  ngOnInit(): void {
+     // Set initial canvas dimensions
+    this.canvas.width = 800;
+    this.canvas.height = 600;
+  }
+  
   ngAfterViewInit() {
     this.canvas = new fabric.Canvas(this.canvasElement.nativeElement);
   
@@ -58,10 +67,12 @@ export class CanvasComponent {
 
   loadImage(imageSrc: string) {
     fabric.Image.fromURL(imageSrc, (img:any) => {
+      console.log("img : ",img);
+      
       this.imageObject = img;
       img.scaleToWidth(500);
-      this.canvas.setWidth(img.width || 500);
-      this.canvas.setHeight(img.height || 500);
+      img.width>800 ?  this.canvas.setWidth(img.width || 500):null;
+      img.height>600 ? this.canvas.setHeight(img.height || 500):null;
       this.canvas.add(img);
       this.canvas.renderAll();
     });
@@ -298,7 +309,6 @@ export class CanvasComponent {
         y2: pointer.y,
       });
     }
-  
     this.canvas.renderAll();
   }
   

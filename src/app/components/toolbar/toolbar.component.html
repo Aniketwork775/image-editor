@@ -1,22 +1,24 @@
-<button (click)="rotate()">Rotate</button>
-<button (click)="resize(1.2)">Zoom In</button>
-<button (click)="resize(0.8)">Zoom Out</button>
-<button (click)="openCropper()">Crop</button>
-<button (click)="reduceBrightness()">-Brightness</button>
-<button (click)="applyBrightness()">+Brightness</button>
-<button (click)="applyContrast()">Contrast</button>
-<button (click)="applyGrayscale()">Grayscale</button>
-<!-- <button (click)="setBrush()">Brush</button> -->
-<!-- <button (click)="addText()">Text</button> -->
-<!-- <button (click)="addRectangle()">Rectangle</button> -->
-<!-- <button (click)="addCircle()">Circle</button> -->
-<!-- <button (click)="addLine()">Line</button> -->
-<button [class.active]="selectedTool === 'brush'" (click)="setBrush()">Brush</button>
-<button [class.active]="selectedTool === 'text'" (click)="addText()">Text</button>
-<button [class.active]="selectedTool === 'rectangle'" (click)="addRectangle()">Rectangle</button>
-<button [class.active]="selectedTool === 'circle'" (click)="addCircle()">Circle</button>
-<button [class.active]="selectedTool === 'line'" (click)="addLine()">Line</button>
-<button (click)="undo()">Undo</button>
-<button (click)="redo()">Redo</button>
+<div class="toolbar">
+    <button (click)="rotate()">Rotate</button>
+    <button (click)="resize(1.2)">Zoom In</button>
+    <button (click)="resize(0.8)">Zoom Out</button>
+    <button (click)="openCropper()">Crop</button>
+    <button (click)="reduceBrightness()">-Brightness</button>
+    <button (click)="applyBrightness()">+Brightness</button>
+    <button (click)="applyContrast()">Contrast</button>
+    <button (click)="applyGrayscale()">Grayscale</button>
+    <!-- <button (click)="setBrush()">Brush</button> -->
+    <!-- <button (click)="addText()">Text</button> -->
+    <!-- <button (click)="addRectangle()">Rectangle</button> -->
+    <!-- <button (click)="addCircle()">Circle</button> -->
+    <!-- <button (click)="addLine()">Line</button> -->
+    <button [class.active]="selectedTool === 'brush'" (click)="setBrush()">Brush</button>
+    <button [class.active]="selectedTool === 'text'" (click)="addText()">Text</button>
+    <button [class.active]="selectedTool === 'rectangle'" (click)="addRectangle()">Rectangle</button>
+    <button [class.active]="selectedTool === 'circle'" (click)="addCircle()">Circle</button>
+    <button [class.active]="selectedTool === 'line'" (click)="addLine()">Line</button>
+    <button (click)="undo()">Undo</button>
+    <button (click)="redo()">Redo</button>
 
-<button (click)="clearCanvas()">Clear Canvas</button>
+    <button (click)="clearCanvas()">Clear Canvas</button>
+</div>
