@@ -21,7 +21,11 @@ export class ToolbarComponent {
   @Output() undoClicked = new EventEmitter();
   @Output() redoClicked = new EventEmitter();
   selectedTool = '';
-
+  @Output() clearCanvasClicked = new EventEmitter();
+  clearCanvas() {
+    this.clearCanvasClicked.emit();
+  }
+  
   rotate() {
     this.rotateClicked.emit();
   }

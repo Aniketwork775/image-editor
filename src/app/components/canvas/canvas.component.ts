@@ -26,6 +26,7 @@ export class CanvasComponent {
   ngAfterViewInit() {
     this.canvas = new fabric.Canvas(this.canvasElement.nativeElement);
   
+    this.loadFromLocalStorage();
     this.canvas.on('mouse:down', (event) => this.onMouseDown(event));
     this.canvas.on('mouse:move', (event) => this.onMouseMove(event));
     this.canvas.on('mouse:up', () => this.onMouseUp());
@@ -49,9 +50,9 @@ export class CanvasComponent {
      this.saveState();
 
      // Listen for events that change the canvas state
-    //  this.canvas.on('object:added', () => this.saveState());
-    //  this.canvas.on('object:modified', () => this.saveState());
-    //  this.canvas.on('object:removed', () => this.saveState());
+     this.canvas.on('object:added', () => this.saveToLocalStorage());
+     this.canvas.on('object:modified', () => this.saveToLocalStorage());
+     this.canvas.on('object:removed', () => this.saveToLocalStorage());
   }
   
 
@@ -117,6 +118,15 @@ export class CanvasComponent {
     this.canvas.freeDrawingBrush = new fabric.PencilBrush(this.canvas);
     this.canvas.freeDrawingBrush.color = 'black';
     this.canvas.freeDrawingBrush.width = 5;
+    console.log("this.canvas==============> ",this.canvas.freeDrawingBrush);
+    
+    const state = JSON.stringify(this.canvas.freeDrawingBrush);
+    // Only push if the new state is different from the last state
+    if (this.undoStack.length === 0 || this.undoStack[this.undoStack.length - 1] !== state) {
+      this.undoStack.push(state);
+      this.saveToLocalStorage();
+    }
+    this.redoStack=[];
   }
 
   // addText() {
@@ -225,7 +235,7 @@ export class CanvasComponent {
     this.startX = pointer.x;
     this.startY = pointer.y;
   
-    if (this.currentShape=="Rect") {
+    if (this.currentShape=="Rect" || this.currentShape instanceof fabric.Rect) {
       console.log("recangle",this.currentShape);
       this.currentShape = new fabric.Rect({
         left: this.startX,
@@ -236,7 +246,7 @@ export class CanvasComponent {
         width: this.startY,
         height: this.startX,
       });
-    } else if (this.currentShape =="Circle") {
+    } else if (this.currentShape =="Circle" || this.currentShape instanceof fabric.Circle) {
       console.log("circle",this.currentShape);
       this.currentShape = new fabric.Circle({
         left: this.startX,
@@ -256,9 +266,12 @@ export class CanvasComponent {
   
     this.canvas.add(this.currentShape);
     const state = JSON.stringify(this.canvas.toJSON());
+    console.log(this.canvas);
+    
     // Only push if the new state is different from the last state
     if (this.undoStack.length === 0 || this.undoStack[this.undoStack.length - 1] !== state) {
       this.undoStack.push(state);
+      this.saveToLocalStorage();
     }
     this.redoStack=[];
     console.log("this.undoStack====>",this.undoStack);
@@ -339,5 +352,23 @@ export class CanvasComponent {
       this.canvas.renderAll();
     });
   }
-}
 
+  saveToLocalStorage() {
+    const canvasState = JSON.stringify(this.canvas.toJSON());
+    localStorage.setItem('canvasState', canvasState);
+  }  
+  
+  loadFromLocalStorage() {
+    const savedState = localStorage.getItem('canvasState');
+    if (savedState) {
+      this.canvas.loadFromJSON(savedState, () => {
+        this.canvas.renderAll();
+      });
+    }
+  }
+  
+  clearCanvas() {
+    this.canvas.clear();
+    localStorage.removeItem('canvasState'); // Clear saved data
+  }  
+}  
