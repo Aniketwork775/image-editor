@@ -381,4 +381,33 @@ export class CanvasComponent implements OnInit{
     this.canvas.clear();
     localStorage.removeItem('canvasState'); // Clear saved data
   }  
+  
+  exportAsImage(type: 'png' | 'jpeg') {
+    // Define the MIME type based on selection.
+    const mimeType = type === 'png' ? 'image/png' : 'image/jpeg';
+    
+    // Generate the data URL for the current canvas content.
+    const dataURL = this.canvas.toDataURL({ format: type, quality: 0.8 });
+  
+    // Create a temporary link element.
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = `edited-image.${type}`;
+    
+    // Append to the document and trigger download.
+    document.body.appendChild(link);
+    link.click();
+    
+    // Clean up.
+    document.body.removeChild(link);
+  }
+  
+  exportAsPNG() {
+    this.exportAsImage('png');
+  }
+  
+  exportAsJPEG() {
+    this.exportAsImage('jpeg');
+  }
+  
 }  

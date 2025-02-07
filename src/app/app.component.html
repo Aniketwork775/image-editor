@@ -15,7 +15,9 @@
   (rectangleClicked)="canvasComponent.addRectangle()" 
   (circleClicked)="canvasComponent.addCircle()" 
   (lineClicked)="canvasComponent.addLine()"
-  (clearCanvasClicked)="canvasComponent.clearCanvas()">
+  (clearCanvasClicked)="canvasComponent.clearCanvas()"
+  (exportPNGClicked)="canvasComponent.exportAsPNG()"
+  (exportJPEGClicked)="canvasComponent.exportAsJPEG()">
 </app-toolbar>
 <app-canvas #canvasComponent></app-canvas>
 <app-cropper *ngIf="showCropper" (cropped)="onImageCropped($event)"></app-cropper>

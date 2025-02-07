@@ -20,6 +20,9 @@ export class ToolbarComponent {
   @Output() lineClicked = new EventEmitter();
   @Output() undoClicked = new EventEmitter();
   @Output() redoClicked = new EventEmitter();
+  @Output() exportPNGClicked = new EventEmitter<void>();
+  @Output() exportJPEGClicked = new EventEmitter<void>();
+  
   selectedTool = '';
   @Output() clearCanvasClicked = new EventEmitter();
   clearCanvas() {
@@ -105,5 +108,13 @@ export class ToolbarComponent {
 
   redo() {
     this.redoClicked.emit();
+  }
+
+  exportAsPNG() {
+    this.exportPNGClicked.emit();
+  }
+
+  exportAsJPEG() {
+    this.exportJPEGClicked.emit();
   }
 }
