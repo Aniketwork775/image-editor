@@ -1,0 +1,4 @@
+<input type="file" #fileInput (change)="onFileSelected($event)">
+<button (click)="processImage()" *ngIf="imageSrc && !loading">Remove Background</button>
+<p *ngIf="loading">Processing...</p>
+<canvas #canvas></canvas>

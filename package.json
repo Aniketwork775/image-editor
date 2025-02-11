@@ -18,6 +18,8 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "@tensorflow-models/body-pix": "^2.2.0",
+    "@tensorflow/tfjs": "^4.1.0",
     "fabric": "^5.5.0",
     "idb": "^8.0.2",
     "ngx-image-cropper": "^6.1.0",

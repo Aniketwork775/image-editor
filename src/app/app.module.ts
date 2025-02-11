@@ -11,6 +11,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { CropperComponent } from './components/cropper/cropper.component';
+import { BackgroundRemoverComponent } from './background-remover/background-remover.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CropperComponent } from './components/cropper/cropper.component';
     ToolbarComponent,
     CanvasComponent,
     SidebarComponent,
-    CropperComponent
+    CropperComponent,
+    BackgroundRemoverComponent
   ],
   imports: [
     BrowserModule,
