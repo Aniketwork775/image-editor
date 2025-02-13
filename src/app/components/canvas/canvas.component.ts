@@ -28,8 +28,8 @@ export class CanvasComponent implements OnInit{
 
   ngOnInit(): void {
      // Set initial canvas dimensions
-    this.canvas.width = 800;
-    this.canvas.height = 600;
+    // this.canvas.width = 800;
+    // this.canvas.height = 600;
   }
   
   ngAfterViewInit() {
@@ -410,4 +410,51 @@ export class CanvasComponent implements OnInit{
     this.exportAsImage('jpeg');
   }
   
+    // Adjust Brightness
+    adjustBrightness(event: any) {
+      if (this.imageObject) {
+        const brightness = parseFloat(event.target.value);
+        this.applyFilter(new fabric.Image.filters.Brightness({ brightness }));
+      }
+    }
+  
+    // Adjust Contrast
+    adjustContrast(event: any) {
+      if (this.imageObject) {
+        const contrast = parseFloat(event.target.value);
+        this.applyFilter(new fabric.Image.filters.Contrast({ contrast }));
+      }
+    }
+  
+    // Adjust RGB Values
+    adjustRGB(color: 'red' | 'green' | 'blue', event: any) {
+      console.log("color=====",color);
+      
+      if (!this.imageObject) return;
+      
+      const value = parseFloat(event.target.value);
+      console.log("value=====",value);
+      
+      const colorMatrixFilter = new fabric.Image.filters.ColorMatrix({
+        matrix: [
+          color === 'red' ? value : 1, 0, 0, 0, 0,
+          0, color === 'green' ? value : 1, 0, 0, 0,
+          0, 0, color === 'blue' ? value : 1, 0, 0,
+          0, 0, 0, 1, 0
+        ]
+      });
+  
+      this.applyFilter(colorMatrixFilter);
+    }
+  
+    // Apply filter and render canvas
+    applyFilter(filter: fabric.IBaseFilter) {
+      if (this.imageObject) {
+        this.imageObject.filters = [filter];
+        this.imageObject.applyFilters();
+        this.canvas.renderAll();
+      }
+    }
+  
+
 }  
