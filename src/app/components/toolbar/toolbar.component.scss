@@ -43,3 +43,25 @@ button.active {
     border: 1px solid #ccc;
   }
   
+
+  .adjustment-controls {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .adjustment-controls label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 8px;
+    color: white;
+  }
+  
+  .adjustment-controls input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+    background: #4A90E2;
+    height: 4px;
+    border-radius: 5px;
+  }
+  

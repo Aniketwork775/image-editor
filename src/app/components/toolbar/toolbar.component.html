@@ -3,15 +3,32 @@
     <button (click)="resize(1.2)">Zoom In</button>
     <button (click)="resize(0.8)">Zoom Out</button>
     <button (click)="openCropper()">Crop</button>
-    <button (click)="reduceBrightness()">-Brightness</button>
+    <!-- <button (click)="reduceBrightness()">-Brightness</button>
     <button (click)="applyBrightness()">+Brightness</button>
-    <button (click)="applyContrast()">Contrast</button>
+    <button (click)="applyContrast()">Contrast</button> -->
     <button (click)="applyGrayscale()">Grayscale</button>
     <!-- <button (click)="setBrush()">Brush</button> -->
     <!-- <button (click)="addText()">Text</button> -->
     <!-- <button (click)="addRectangle()">Rectangle</button> -->
     <!-- <button (click)="addCircle()">Circle</button> -->
     <!-- <button (click)="addLine()">Line</button> -->
+    <!-- <div class="adjustment-controls">
+        <label>Brightness</label>
+        <input type="range" min="-1" max="1" step="0.1" (input)="canvasComponent.adjustBrightness($event)">
+        
+        <label>Contrast</label>
+        <input type="range" min="-1" max="1" step="0.1" (input)="canvasComponent.adjustContrast($event)">
+        
+        <label>Red</label>
+        <input type="range" min="0" max="2" step="0.1" (input)="canvasComponent.adjustRGB('red', $event)">
+        
+        <label>Green</label>
+        <input type="range" min="0" max="2" step="0.1" (input)="canvasComponent.adjustRGB('green', $event)">
+        
+        <label>Blue</label>
+        <input type="range" min="0" max="2" step="0.1" (input)="canvasComponent.adjustRGB('blue', $event)">
+      </div> -->
+      
     <button [class.active]="selectedTool === 'brush'" (click)="setBrush()">Brush</button>
     <button [class.active]="selectedTool === 'text'" (click)="addText()">Text</button>
     <button [class.active]="selectedTool === 'rectangle'" (click)="addRectangle()">Rectangle</button>
