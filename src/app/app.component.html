@@ -1,6 +1,6 @@
 <div class="image-editor">
   <app-upload (imageSelected)="onImageSelected($event)"></app-upload>
-  <app-toolbar (undoClicked)="canvasComponent.undo()" (redoClicked)="canvasComponent.redo()"
+  <app-toolbar [showtools]="showtools" (undoClicked)="canvasComponent.undo()" (redoClicked)="canvasComponent.redo()"
     (rotateClicked)="canvasComponent.rotateImage()" (resizeClicked)="canvasComponent.resizeImage($event)"
     (cropClicked)="showCropper = true" (brightnessClicked)="canvasComponent.applyBrightness()"
     (rbrightnessClicked)="canvasComponent.reduceBrightness()" (contrastClicked)="canvasComponent.applyContrast()"
@@ -10,7 +10,7 @@
     (clearCanvasClicked)="canvasComponent.clearCanvas()" (exportPNGClicked)="canvasComponent.exportAsPNG()"
     (exportJPEGClicked)="canvasComponent.exportAsJPEG()">
   </app-toolbar>
-  <app-canvas #canvasComponent></app-canvas>
+  <app-canvas #canvasComponent [showtools]="showtools"></app-canvas>
   <app-cropper *ngIf="showCropper" (cropped)="onImageCropped($event)"></app-cropper>
 
 </div>

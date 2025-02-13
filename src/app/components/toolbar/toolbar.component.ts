@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
@@ -6,6 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent {
+  @Input() showtools:boolean=false;
   @Output() rotateClicked = new EventEmitter();
   @Output() resizeClicked = new EventEmitter<number>();
   @Output() cropClicked = new EventEmitter();

@@ -1,4 +1,4 @@
-<div class="toolbar">
+<div class="toolbar" *ngIf="showtools">
     <button (click)="rotate()">Rotate</button>
     <button (click)="resize(1.2)">Zoom In</button>
     <button (click)="resize(0.8)">Zoom Out</button>

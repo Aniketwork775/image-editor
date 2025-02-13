@@ -9,9 +9,10 @@ import { CanvasComponent } from './components/canvas/canvas.component';
 export class AppComponent {
   @ViewChild('canvasComponent') canvasComponent!: CanvasComponent;
   showCropper = false;
-
+  showtools:boolean=false;
   onImageSelected(imageSrc: string) {
     this.canvasComponent.loadImage(imageSrc);
+    this.showtools=true;
   }
 
   onImageCropped(imageSrc: string) {
