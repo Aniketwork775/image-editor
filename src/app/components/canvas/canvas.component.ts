@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { fabric } from 'fabric';
 import { Rect } from 'fabric/fabric-impl';
 
@@ -17,10 +17,17 @@ export class CanvasComponent implements OnInit{
   private currentShape!: any;
   private startX = 0;
   private startY = 0;
-
+  @Input() showtools:boolean=false;
   // History stacks for undo and redo
   undoStack: string[] = [];
   redoStack: string[] = [];
+
+  // Current adjustment values
+  currentBrightness: number = 0; // Range: -1 to 1 (default 0)
+  currentContrast: number = 0;   // Range: -1 to 1 (default 0)
+  currentRed: number = 1;        // Range: 0 to 2 (default 1)
+  currentGreen: number = 1;      // Range: 0 to 2 (default 1)
+  currentBlue: number = 1;       // Range: 0 to 2 (default 1)
 
   // ngAfterViewInit() {
   //   this.canvas = new fabric.Canvas(this.canvasElement.nativeElement);
@@ -64,15 +71,18 @@ export class CanvasComponent implements OnInit{
      this.canvas.on('object:removed', () => this.saveToLocalStorage());
   }
   
-
+// Loads an image onto the canvas and resets adjustment values.
   loadImage(imageSrc: string) {
-    fabric.Image.fromURL(imageSrc, (img:any) => {
-      console.log("img : ",img);
-      
+    fabric.Image.fromURL(imageSrc, (img) => {
       this.imageObject = img;
-      img.scaleToWidth(500);
-      img.width>800 ?  this.canvas.setWidth(img.width || 500):null;
-      img.height>600 ? this.canvas.setHeight(img.height || 500):null;
+      // Reset adjustment values
+      this.currentBrightness = 0;
+      this.currentContrast = 0;
+      this.currentRed = 1;
+      this.currentGreen = 1;
+      this.currentBlue = 1;
+      // Clear existing canvas and add the new image
+      this.canvas.clear();
       this.canvas.add(img);
       this.canvas.renderAll();
     });
@@ -410,51 +420,70 @@ export class CanvasComponent implements OnInit{
     this.exportAsImage('jpeg');
   }
   
-    // Adjust Brightness
+    // Called when the brightness slider is moved.
     adjustBrightness(event: any) {
-      if (this.imageObject) {
-        const brightness = parseFloat(event.target.value);
-        this.applyFilter(new fabric.Image.filters.Brightness({ brightness }));
-      }
+      this.currentBrightness = parseFloat(event.target.value);
+      this.updateFilters();
     }
   
-    // Adjust Contrast
+    // Called when the contrast slider is moved.
     adjustContrast(event: any) {
-      if (this.imageObject) {
-        const contrast = parseFloat(event.target.value);
-        this.applyFilter(new fabric.Image.filters.Contrast({ contrast }));
-      }
+      this.currentContrast = parseFloat(event.target.value);
+      this.updateFilters();
     }
   
-    // Adjust RGB Values
+    // Called when any of the RGB sliders are moved.
     adjustRGB(color: 'red' | 'green' | 'blue', event: any) {
-      console.log("color=====",color);
-      
-      if (!this.imageObject) return;
-      
       const value = parseFloat(event.target.value);
-      console.log("value=====",value);
-      
-      const colorMatrixFilter = new fabric.Image.filters.ColorMatrix({
-        matrix: [
-          color === 'red' ? value : 1, 0, 0, 0, 0,
-          0, color === 'green' ? value : 1, 0, 0, 0,
-          0, 0, color === 'blue' ? value : 1, 0, 0,
-          0, 0, 0, 1, 0
-        ]
-      });
-  
-      this.applyFilter(colorMatrixFilter);
-    }
-  
-    // Apply filter and render canvas
-    applyFilter(filter: fabric.IBaseFilter) {
-      if (this.imageObject) {
-        this.imageObject.filters = [filter];
-        this.imageObject.applyFilters();
-        this.canvas.renderAll();
+      if (color === 'red') {
+        this.currentRed = value;
+      } else if (color === 'green') {
+        this.currentGreen = value;
+      } else if (color === 'blue') {
+        this.currentBlue = value;
       }
+      this.updateFilters();
     }
   
+    // Combines all filters (brightness, contrast, and RGB adjustments) and applies them.
+    updateFilters() {
+      if (!this.imageObject) return;
+      const filters = [];
+  
+      // Apply brightness filter if needed.
+      if (this.currentBrightness !== 0) {
+        filters.push(new fabric.Image.filters.Brightness({ brightness: this.currentBrightness }));
+      }
+  
+      // Apply contrast filter if needed.
+      if (this.currentContrast !== 0) {
+        filters.push(new fabric.Image.filters.Contrast({ contrast: this.currentContrast }));
+      }
+  
+      // Apply RGB adjustments if any channel is not at its default value.
+      if (this.currentRed !== 1 || this.currentGreen !== 1 || this.currentBlue !== 1) {
+        filters.push(new fabric.Image.filters.ColorMatrix({
+          matrix: [
+            this.currentRed, 0, 0, 0, 0,
+            0, this.currentGreen, 0, 0, 0,
+            0, 0, this.currentBlue, 0, 0,
+            0, 0, 0, 1, 0
+          ]
+        }));
+      }
+    // Update filters on the image and render the canvas.
+    this.imageObject.filters = filters;
+    this.imageObject.applyFilters();
+    this.canvas.renderAll();
+  }
 
+  // Resets all adjustments to their default values.
+  resetAdjustments() {
+    this.currentBrightness = 0;
+    this.currentContrast = 0;
+    this.currentRed = 1;
+    this.currentGreen = 1;
+    this.currentBlue = 1;
+    this.updateFilters();
+  }
 }  

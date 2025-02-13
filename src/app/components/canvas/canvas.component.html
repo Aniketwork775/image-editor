@@ -1,3 +1,35 @@
-<div class="canvas-container">
-    <canvas #imageCanvas width="800" height="600"></canvas>
+<div class="canvas-container" [hidden]="!showtools">
+    <canvas #imageCanvas width="800" height="600" [hidden]="!showtools"></canvas>
+</div>
+<div class="tools" *ngIf="showtools">
+    <div class="adjustment-controls">
+        <div class="control-group">
+            <label for="brightness">Brightness</label>
+            <input id="brightness" type="range" min="-1" max="1" step="0.1" (input)="adjustBrightness($event)"
+                [value]="currentBrightness">
+        </div>
+        <div class="control-group">
+            <label for="contrast">Contrast</label>
+            <input id="contrast" type="range" min="-1" max="1" step="0.1" (input)="adjustContrast($event)"
+                [value]="currentContrast">
+        </div>
+        <div class="control-group">
+            <label for="red">Red</label>
+            <input id="red" type="range" min="0" max="2" step="0.1" (input)="adjustRGB('red', $event)"
+                [value]="currentRed">
+        </div>
+        <div class="control-group">
+            <label for="green">Green</label>
+            <input id="green" type="range" min="0" max="2" step="0.1" (input)="adjustRGB('green', $event)"
+                [value]="currentGreen">
+        </div>
+        <div class="control-group">
+            <label for="blue">Blue</label>
+            <input id="blue" type="range" min="0" max="2" step="0.1" (input)="adjustRGB('blue', $event)"
+                [value]="currentBlue">
+        </div>
+    </div>
+    <div class="control-group">
+        <button (click)="resetAdjustments()">Reset Adjustments</button>
+    </div>
 </div>
