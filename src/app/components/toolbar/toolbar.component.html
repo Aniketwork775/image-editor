@@ -1,7 +1,7 @@
 <div class="toolbar" *ngIf="showtools">
     <button (click)="rotate()">Rotate</button>
-    <button (click)="resize(1.2)">Zoom In</button>
-    <button (click)="resize(0.8)">Zoom Out</button>
+    <button [disabled]="scalerFactor<0.2" (click)="zoomOut()">Zoom Out</button>
+    <button [disabled]="scalerFactor>4.2" (click)="zoomIn()">Zoom In</button>
     <button (click)="openCropper()">Crop</button>
     <!-- <button (click)="reduceBrightness()">-Brightness</button>
     <button (click)="applyBrightness()">+Brightness</button>

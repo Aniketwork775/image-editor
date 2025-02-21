@@ -25,6 +25,7 @@ export class ToolbarComponent {
   @Output() exportJPEGClicked = new EventEmitter<void>();
   
   selectedTool = '';
+  scalerFactor:number=1;
   @Output() clearCanvasClicked = new EventEmitter();
   clearCanvas() {
     this.clearCanvasClicked.emit();
@@ -32,6 +33,18 @@ export class ToolbarComponent {
   
   rotate() {
     this.rotateClicked.emit();
+  }
+
+  zoomIn(){
+    this.scalerFactor=this.scalerFactor+0.1;
+    console.log("this.scalerFactor============",this.scalerFactor);
+    this.resize(this.scalerFactor);
+  }
+  
+  zoomOut(){
+    this.scalerFactor=this.scalerFactor-0.1;
+    console.log("this.scalerFactor============",this.scalerFactor);
+    this.resize(this.scalerFactor);
   }
 
   resize(scaleFactor: number) {
