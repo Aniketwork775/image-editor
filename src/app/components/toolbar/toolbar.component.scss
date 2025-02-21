@@ -36,6 +36,11 @@ button.active {
     transform: scale(0.95);
   }
   
+  .toolbar button:disabled {
+    background: #2c66936b;
+    transform: scale(0.95);
+  }
+  
   .toolbar input[type="file"] {
     background: #fff;
     padding: 8px;
