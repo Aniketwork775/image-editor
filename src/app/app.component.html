@@ -1,13 +1,22 @@
 <div class="image-editor">
   <app-upload (imageSelected)="onImageSelected($event)"></app-upload>
-  <app-toolbar [showtools]="showtools" (undoClicked)="canvasComponent.undo()" (redoClicked)="canvasComponent.redo()"
-    (rotateClicked)="canvasComponent.rotateImage()" (resizeClicked)="canvasComponent.resizeImage($event)"
-    (cropClicked)="showCropper = true" (brightnessClicked)="canvasComponent.applyBrightness()"
-    (rbrightnessClicked)="canvasComponent.reduceBrightness()" (contrastClicked)="canvasComponent.applyContrast()"
-    (grayscaleClicked)="canvasComponent.applyGrayscale()" (brushClicked)="canvasComponent.setBrush()"
-    (textClicked)="canvasComponent.addText()" (rectangleClicked)="canvasComponent.addRectangle()"
-    (circleClicked)="canvasComponent.addCircle()" (lineClicked)="canvasComponent.addLine()"
-    (clearCanvasClicked)="canvasComponent.clearCanvas()" (exportPNGClicked)="canvasComponent.exportAsPNG()"
+  <app-toolbar [showtools]="showtools"
+    (undoClicked)="canvasComponent.undo()"
+    (redoClicked)="canvasComponent.redo()"
+    (rotateClicked)="canvasComponent.rotateImage()"
+    (resizeClicked)="canvasComponent.resizeImage($event)"
+    (cropClicked)="showCropper = true"
+    (brightnessClicked)="canvasComponent.applyBrightness()"
+    (rbrightnessClicked)="canvasComponent.reduceBrightness()"
+    (contrastClicked)="canvasComponent.applyContrast()"
+    (grayscaleClicked)="canvasComponent.applyGrayscale()"
+    (brushClicked)="canvasComponent.setBrush()"
+    (textClicked)="canvasComponent.addText()"
+    (rectangleClicked)="canvasComponent.addRectangle()"
+    (circleClicked)="canvasComponent.addCircle()"
+    (lineClicked)="canvasComponent.addLine()"
+    (clearCanvasClicked)="canvasComponent.clearCanvas()"
+    (exportPNGClicked)="canvasComponent.exportAsPNG()"
     (exportJPEGClicked)="canvasComponent.exportAsJPEG()">
   </app-toolbar>
   <app-canvas #canvasComponent [showtools]="showtools"></app-canvas>
